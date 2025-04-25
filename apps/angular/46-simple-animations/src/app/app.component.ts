@@ -1,5 +1,12 @@
+import {
+  animate,
+  query,
+  stagger,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component } from '@angular/core';
-
 @Component({
   imports: [],
   selector: 'app-root',
@@ -16,9 +23,38 @@ import { Component } from '@angular/core';
       }
     }
   `,
+  animations: [
+    trigger('slideIn', [
+      transition(':enter', [
+        // triggers on component load
+        style({ transform: 'translateX(-10px)', opacity: 0 }), // initial
+        animate(
+          '600ms ease-out',
+          style({ transform: 'translateX(0)', opacity: 1 }),
+        ), // final
+      ]),
+    ]),
+    trigger('listStagger', [
+      transition(':enter', [
+        query(
+          '.list-item',
+          [
+            style({ opacity: 0, transform: 'translateY(15px)' }),
+            stagger('100ms', [
+              animate(
+                '300ms ease-out',
+                style({ opacity: 1, transform: 'translateY(0)' }),
+              ),
+            ]),
+          ],
+          { optional: true },
+        ),
+      ]),
+    ]),
+  ],
   template: `
     <div class="mx-20 my-40 flex gap-5">
-      <section>
+      <section [@slideIn]="true">
         <div>
           <h3>2008</h3>
           <p>
@@ -50,7 +86,7 @@ import { Component } from '@angular/core';
         </div>
       </section>
 
-      <section>
+      <section [@listStagger]>
         <div class="list-item">
           <span>Name:</span>
           <span>Samuel</span>
