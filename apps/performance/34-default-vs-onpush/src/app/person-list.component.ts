@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { CDFlashingDirective } from '@angular-challenges/shared/directives';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
@@ -9,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { PersonFormComponent } from './form-input.component';
 import { PersonListItemComponent } from './list-item';
+import { PersonListTitleComponent } from './person-list-title.component';
 
 @Component({
   selector: 'app-person-list',
@@ -19,15 +19,13 @@ import { PersonListItemComponent } from './list-item';
     MatFormFieldModule,
     MatInputModule,
     MatChipsModule,
-    CDFlashingDirective,
     PersonFormComponent,
     PersonListItemComponent,
+    PersonListTitleComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h1 cd-flash class="text-center font-semibold" title="Title">
-      {{ title | titlecase }}
-    </h1>
+    <app-person-list-title [title]="title" />
 
     <app-person-form (submitted)="addName($event)" />
 

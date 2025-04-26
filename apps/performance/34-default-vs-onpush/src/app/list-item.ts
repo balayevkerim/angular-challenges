@@ -1,11 +1,11 @@
 import { CDFlashingDirective } from '@angular-challenges/shared/directives';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { MatListItem, MatListItemLine } from '@angular/material/list';
+import { MatListItem } from '@angular/material/list';
 
 @Component({
   selector: 'app-person-list-item',
   standalone: true,
-  imports: [MatListItem, MatListItemLine, CDFlashingDirective],
+  imports: [MatListItem, CDFlashingDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-list-item cd-flash class="text-orange-500">
