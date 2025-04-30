@@ -1,26 +1,26 @@
-import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ListDirective, PersonDirective } from './directives';
 import { ListComponent } from './list.component';
 import { PersonComponent } from './person.component';
 
 @Component({
-  imports: [NgTemplateOutlet, PersonComponent, ListComponent],
+  imports: [PersonComponent, ListComponent, PersonDirective, ListDirective],
   selector: 'app-root',
   template: `
     <person [person]="person">
-      <ng-template #personRef let-name let-age="age">
+      <ng-template #personRef person let-name let-age>
         {{ name }}: {{ age }}
       </ng-template>
     </person>
 
     <list [list]="students">
-      <ng-template #listRef let-student let-i="index">
+      <ng-template #listRef person let-student let-i="index">
         {{ student.name }}: {{ student.age }} - {{ i }}
       </ng-template>
     </list>
 
     <list [list]="cities">
-      <ng-template #listRef let-city let-i="index">
+      <ng-template #listRef list let-city let-i="index">
         {{ city.name }}: {{ city.country }} - {{ i }}
       </ng-template>
     </list>

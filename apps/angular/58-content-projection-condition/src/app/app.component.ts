@@ -5,7 +5,7 @@ import { CardComponent } from './card.component';
   imports: [CardComponent],
   selector: 'app-root',
   template: `
-    <app-card>
+    <app-card [small]="false">
       <div title>Card 1</div>
       <div message>Message 1</div>
     </app-card>

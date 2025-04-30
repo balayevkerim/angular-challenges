@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 
-interface Person {
+export interface Person {
   name: string;
   age: number;
 }

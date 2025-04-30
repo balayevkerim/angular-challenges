@@ -6,6 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { CalculateFib } from './person-fib.pipe';
 import { Person } from './person.model';
 
 const fibonacci = (num: number): number => {
@@ -24,6 +25,7 @@ const fibonacci = (num: number): number => {
     MatFormFieldModule,
     MatInputModule,
     MatChipsModule,
+    CalculateFib,
   ],
   template: `
     <h1 class="text-center font-semibold" title="Title">

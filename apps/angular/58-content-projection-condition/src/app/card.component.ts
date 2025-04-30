@@ -1,19 +1,24 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-card',
+  standalone: true,
+  imports: [CommonModule],
   template: `
-    @if (small()) {
+    <ng-container *ngIf="small(); else largeView">
       <ng-content select="[title]" />
       <ng-content select="[message]" />
-    } @else {
+    </ng-container>
+
+    <ng-template #largeView>
       <div class="p-4">
         <div class="text-2xl">
           <ng-content select="[title]" />
         </div>
         <ng-content select="[message]" />
       </div>
-    }
+    </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {

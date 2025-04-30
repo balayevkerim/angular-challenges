@@ -1,6 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, inject, NgZone } from '@angular/core';
+import { BehaviorSubject, fromEvent } from 'rxjs';
 
 @Component({
   imports: [NgIf, AsyncPipe],
@@ -35,11 +35,33 @@ export class AppComponent {
 
   private displayButtonSubject = new BehaviorSubject<boolean>(false);
   displayButton$ = this.displayButtonSubject.asObservable();
+  private lastState = false;
+  private ngZone = inject(NgZone);
 
-  @HostListener('window:scroll', ['$event'])
+  /* @HostListener('window:scroll', ['$event'])
   onScroll() {
     const pos = window.pageYOffset;
-    this.displayButtonSubject.next(pos > 50);
+    const shouldDisplay = pos > 50;
+    // Only update and trigger change detection if the visibility changed
+    if (shouldDisplay !== this.lastState) {
+      this.lastState = shouldDisplay;
+      this.displayButtonSubject.next(shouldDisplay);
+
+      // Manually mark this component to check for update
+      this.cdr.markForCheck();
+    }
+  } */
+  constructor() {
+    this.ngZone.runOutsideAngular(() => {
+      fromEvent(window, 'scroll').subscribe(() => {
+        const shouldShow = window.pageYOffset > 50;
+
+        if (this.lastState !== shouldShow) {
+          this.lastState = shouldShow;
+          this.displayButtonSubject.next(shouldShow);
+        }
+      });
+    });
   }
 
   goToTop() {
